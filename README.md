@@ -57,11 +57,11 @@ Please go to each folder to see how to use the code in detail.
 
 The comprehensive comparisons between different defense methods against various attacks on four victim models can be found in the paper (Table.2, 3, 4, 5). Here we plot the results as histograms for more straightforward demonstration, where the x-axis are different attacks, y-axis is accuracy and higher is better and our IF-Defense is the last three columns of each cluster.
 
-<center><img src="imgs/hist_results_pn.png" alt="hist_results_pn" style="zoom:20%;" /></center>
-<center><img src="imgs/hist_results_pn2.png" alt="hist_results_pn2" style="zoom:15%;" /></centercenter>
+<center><img src="imgs/hist_results_pn.png" alt="hist_results_pn" style="zoom:50%;" /></center>
+<center><img src="imgs/hist_results_pn2.png" alt="hist_results_pn2" style="zoom:50%;" /></centercenter>
 
-<center><img src="imgs/hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:10%;" /></center>
-<center><img src="imgs/hist_results_pc.png" alt="hist_results_pc" style="zoom:5%;" /></center>
+<center><img src="imgs/hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:50%;" /></center>
+<center><img src="imgs/hist_results_pc.png" alt="hist_results_pc" style="zoom:50%;" /></center>
 
 ### Qualitative Results
 
