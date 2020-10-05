@@ -157,7 +157,7 @@ if __name__ == "__main__":
     # Training settings
     parser = argparse.ArgumentParser(description='Point Cloud Recognition')
     parser.add_argument('--ori_data', type=str,
-                        default='data/MN40_normal_random_2048.npz')
+                        default='data/MN40_random_2048.npz')
     parser.add_argument('--def_data', type=str,
                         default='data/')
     parser.add_argument('--model', type=str, default='pointnet',
