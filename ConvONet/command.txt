@@ -1,0 +1,3 @@
+# IF-Defense
+# ConvONet-Opt
+CUDA_VISIBLE_DEVICES=0 python opt_defense.py --sample_npoint=1024 --train=False --rep_weight=500.0 --data_root=path/to/adv_data.npz
