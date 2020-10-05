@@ -9,11 +9,9 @@ Point cloud is an important 3D data representation widely used in many essential
 Although adversarial attack and defense are widely studied in 2D images, little attention is paid to its 3D counterpart. In this paper, we show that 3D attack is not a simple extension of 2D. We summarize the attack effects of existing methods from a **3D-specific geometric-aware perspective**. The small and local perturbations are *point perturbation*, which includes **out-of-surface perturbation** and **on-surface perturbation**. The larger and more global attacks are *surface distortion* including **local part removal** and **geometric deformation**.
 
 <center><img src="imgs/attack_effects.png" alt="attack_effects" style="zoom:100%;" /></center>
-
 In this paper, we propose a novel 3D adversarial point cloud defense method leveraging **implicit function** based restoration. It is composed of two steps: 1) it predicts an implicit function that captures the *clean shape* through a surface recovery module, and 2) restores a clean and complete point cloud via *optimizing* towards the predicted implicit surface under geometry- and distribution- aware constraints. Our experimental results show that IF-Defense achieves the state-of-the-art defense performance against all existing adversarial attacks on PointNet, PointNet++, DGCNN and PointConv.
 
 <center><img src="imgs/method_pipeline.png" alt="method_pipeline" style="zoom:100%;" /></center>
-
 In this repo, we provide PyTorch implementations for baseline attacks (Perturb, Add, $k$NN, Drop), defenses (SRS, SOR, DUP-Net) and three variants of IF-Defense (ONet-Mesh, ONet-Opt, ConvONet-Opt). We hope this open source codebase can benefit the community of 3D adversarial attack and defense in point cloud.
 
 ## Requirements
@@ -59,20 +57,17 @@ Please go to each folder to see how to use the code in detail.
 
 The comprehensive comparisons between different defense methods against various attacks on four victim models can be found in the paper (Table.2, 3, 4, 5). Here we plot the results as histograms for more straightforward demonstration, where the x-axis are different attacks, y-axis is accuracy and higher is better and our IF-Defense is the last three columns of each cluster.
 
-<center><img src="imgs\hist_results_pn.png" alt="hist_results_pn" style="zoom:45%;" /></center>
+<center><img src="imgs\hist_results_pn.png" alt="hist_results_pn" style="zoom:35%;" /></center>
+<center><img src="imgs\hist_results_pn2.png" alt="hist_results_pn2" style="zoom:35%;" /></centercenter>
 
-<center><img src="imgs\hist_results_pn2.png" alt="hist_results_pn2" style="zoom:45%;" /></centercenter>
-
-<center><img src="imgs\hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:45%;" /></center>
-
-<center><img src="imgs\hist_results_pc.png" alt="hist_results_pc" style="zoom:45%;" /></center>
+<center><img src="imgs\hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:35%;" /></center>
+<center><img src="imgs\hist_results_pc.png" alt="hist_results_pc" style="zoom:35%;" /></center>
 
 ### Qualitative Results
 
 We show defense point clouds of SOR, DUP-Net and three variants of IF-Defense. Our methods successfully 1) **recover** the head of the airplane under point dropping attack and 2) **restore** uniform point distributions under $k$NN attack. More visualizations can be found in the appendix of the paper.
 
 <center><img src="imgs/visualize_defense.png" alt="visualize_defense" style="zoom:100%;" /></center>
-
 
 ## License
 
