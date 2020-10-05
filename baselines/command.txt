@@ -1,5 +1,7 @@
 # baselines
 # train victim models on purely clean data
+We provide four victim models: pointnet, pointnet2, dgcnn, pointconv
+
 You need to specify the victim model to train in the command
 
 CUDA_VISIBLE_DEVICES=0 python train.py --model={$MODEL} --num_points=1024
