@@ -79,9 +79,7 @@ if __name__ == "__main__":
                         help='min margin in logits adv loss')
     parser.add_argument('--attack_type', type=str, default='FGM', metavar='N',
                         help='Attack method to use')
-    parser.add_argument('--step_size', type=float, default=1e-3,
-                        help='FGM step length')
-    parser.add_argument('--budget', type=float, default=1e-2,
+    parser.add_argument('--budget', type=float, default=0.08,
                         help='FGM attack budget')
     parser.add_argument('--num_iter', type=int, default=50,
                         help='IFGM iterate step')

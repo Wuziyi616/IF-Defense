@@ -106,9 +106,9 @@ MAX_DROP_BATCH = {
 
 MAX_FGM_PERTURB_BATCH = {
     1024: {
-        'pointnet': 400,
-        'pointnet2': 80,
-        'dgcnn': 50,
-        'pointconv': 57,
+        'pointnet': 360,
+        'pointnet2': 76,
+        'dgcnn': 52,
+        'pointconv': 58,
     },
 }
