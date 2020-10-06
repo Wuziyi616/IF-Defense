@@ -75,7 +75,7 @@ class ModelNet40Hybrid(ModelNet40):
             if subset == 'ori':
                 self.data = ori_data
                 self.label = ori_label
-            elif subset == 'adv':
+            elif subset == 'def':
                 self.data = def_data
                 self.label = def_label
             else:
