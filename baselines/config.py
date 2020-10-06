@@ -6,8 +6,8 @@ BEST_WEIGHTS = {
     'mn40': {
         1024: {
             'pointnet': 'pretrain/mn40/pointnet.pth',
-            'pointnet2': 'pretrain/mn40/pointnet2_ssg.pth',
-            'pointconv': 'pretrain/mn40/pointconv_ssg.pth',
+            'pointnet2': 'pretrain/mn40/pointnet2.pth',
+            'pointconv': 'pretrain/mn40/pointconv.pth',
             'dgcnn': 'pretrain/mn40/dgcnn.pth',
         },
     },
@@ -15,8 +15,8 @@ BEST_WEIGHTS = {
     'remesh_mn40': {
         1024: {
             'pointnet': 'pretrain/remesh_mn40/pointnet.pth',
-            'pointnet2': 'pretrain/remesh_mn40/pointnet2_ssg.pth',
-            'pointconv': 'pretrain/remesh_mn40/pointconv_ssg.pth',
+            'pointnet2': 'pretrain/remesh_mn40/pointnet2.pth',
+            'pointconv': 'pretrain/remesh_mn40/pointconv.pth',
             'dgcnn': 'pretrain/remesh_mn40/dgcnn.pth',
         },
     },
@@ -24,8 +24,8 @@ BEST_WEIGHTS = {
     'opt_mn40': {
         1024: {
             'pointnet': 'pretrain/opt_mn40/pointnet.pth',
-            'pointnet2': 'pretrain/opt_mn40/pointnet2_ssg.pth',
-            'pointconv': 'pretrain/opt_mn40/pointconv_ssg.pth',
+            'pointnet2': 'pretrain/opt_mn40/pointnet2.pth',
+            'pointconv': 'pretrain/opt_mn40/pointconv.pth',
             'dgcnn': 'pretrain/opt_mn40/dgcnn.pth',
         },
     },
@@ -33,8 +33,8 @@ BEST_WEIGHTS = {
     'conv_opt_mn40': {
         1024: {
             'pointnet': 'pretrain/conv_opt_mn40/pointnet.pth',
-            'pointnet2': 'pretrain/conv_opt_mn40/pointnet2_ssg.pth',
-            'pointconv': 'pretrain/conv_opt_mn40/pointconv_ssg.pth',
+            'pointnet2': 'pretrain/conv_opt_mn40/pointnet2.pth',
+            'pointconv': 'pretrain/conv_opt_mn40/pointconv.pth',
             'dgcnn': 'pretrain/conv_opt_mn40/dgcnn.pth',
         },
     },
