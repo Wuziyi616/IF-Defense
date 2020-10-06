@@ -48,23 +48,23 @@ Train a model on the randomly sampled ModelNet40 dataset:
 CUDA_VISIBLE_DEVICES=0 python train.py --model={$MODEL} --num_points=1024
 ```
 
-This will train the model for 200 epochs using the Adam optimizer with learning rate starting from $1e-3$ and cosine decay to $1e-5$.
+This will train the model for 200 epochs using the Adam optimizer with learning rate starting from 1e-3 and cosine decay to 1e-5.
 
 The pre-trained weights we provided using this command achieve slightly lower accuracy than reported in their paper. This is because we do not use any tricks (e.g. label smoothing in the official TensorFlow implementation of [DGCNN](https://github.com/WangYueFt/dgcnn/blob/master/tensorflow/models/dgcnn.py#L105)), and we train/test on randomly sampled point clouds while some official implementations are train/tested on Farthest Point Sampling (FPS) sampled point clouds.
 
 #### Hybrid Training
 
-The victim models trained purely on clean data degrade the accuracy by up to $5\%$ on the IF-Defense defended data, which is unacceptable for a defense. So we add the defense data as a simple data augmentation to achieve negligible degradation:
+The victim models trained purely on clean data degrade the accuracy by up to 5% on the IF-Defense defended data, which is unacceptable for a defense. So we add the defense data as a simple data augmentation to achieve negligible degradation:
 
 ```shell
 CUDA_VISIBLE_DEVICES=0 python hybrid_train.py --model={$MODEL} --num_points=1024 --dataset={$DATASET} --def_data=path/to/defense_data.npz
 ```
 
-Please refer to the appendix of our paper for more details about hybrid training.
+Please refer to the appendix of our paper for more details about hybrid training. And see ```command.txt``` for the usage of argument {$DATASET}.
 
 ### Attacks
 
-We implement **Perturb**, **Add**, **$k$NN**, variants of **FGM** and **Drop** attack. The attack scripts are in ```attack_scripts/``` folder. Except for Drop method that cannot targetedly attack the victim model, we perform targeted attack according to pre-assigned and fixed target labels.
+We implement **Perturb**, **Add**, **kNN**, variants of **FGM** and **Drop** attack. The attack scripts are in ```attack_scripts/``` folder. Except for Drop method that cannot targetedly attack the victim model, we perform targeted attack according to pre-assigned and fixed target labels.
 
 The attacks are very time-consuming (e.g. 10-step binary search in Perturb method), so we use multi-GPU support provided by DistributedDataParallel in PyTorch to accelerate the process. For detailed usage of each attack method, please refer to ```command.txt```.
 

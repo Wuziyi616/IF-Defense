@@ -114,7 +114,6 @@ def train(start_epoch):
                   format(epoch, ori_acc, def_acc,
                          best_ori_acc, best_ori_epoch,
                          best_def_acc, best_def_epoch))
-            scheduler.step(epoch)
             torch.save(model.state_dict(),
                        os.path.join(
                            logs_dir,
@@ -126,6 +125,7 @@ def train(start_epoch):
 
         logger.add_scalar('train/loss', all_loss_save.avg, epoch)
         logger.add_scalar('train/lr', get_lr(opt), epoch)
+        scheduler.step(epoch)
 
     # save the best model
     torch.save(best_weight,
