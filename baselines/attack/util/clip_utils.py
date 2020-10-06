@@ -85,7 +85,7 @@ class ProjectInnerPoints(nn.Module):
                 diff * normal, dim=1)  # [B, K]
             inner_mask = (inner_diff_normal < 0.)  # [B, K]
 
-            # TODO: clip to surface!
+            # clip to surface!
             # 1) vng = Normal x Perturb
             vng = torch.cross(normal, diff, dim=1)  # [B, 3, K]
             vng_norm = torch.sum(vng ** 2, dim=1) ** 0.5  # [B, K]
