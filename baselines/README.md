@@ -73,7 +73,7 @@ The attacks are very time-consuming (e.g. 10-step binary search in Perturb metho
 We implement **SRS**, **SOR** and **DUP-Net** defense. To apply a defense, simply run
 
 ```shell
-CUDA_VISIBLE_DEVICES=0 python defend_npz.py --data_root=path/to/adv_data.npy --defense=srs/sor/dup/''
+CUDA_VISIBLE_DEVICES=0 python defend_npz.py --data_root=path/to/adv_data.npz --defense=srs/sor/dup/''
 ```
 
 The defense result will still be a NumPy npz file saved in the same directory as the adv_data.

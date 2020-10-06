@@ -78,4 +78,4 @@ The distributed npz files will be removed, only the new one will remain
 You need to specify a defense method to apply in the command
 If not specified, will apply all three methods
 
-CUDA_VISIBLE_DEVICES=0 python defend_npz.py --data_root=path/to/adv_data.npy --defense=srs/sor/dup/''
+CUDA_VISIBLE_DEVICES=0 python defend_npz.py --data_root=path/to/adv_data.npz --defense=srs/sor/dup/''
