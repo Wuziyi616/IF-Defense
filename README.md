@@ -64,13 +64,11 @@ The comprehensive comparisons between different defense methods against various 
 
 <center><img src="imgs/hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:50%;" /></center>
 <center><img src="imgs/hist_results_pc.png" alt="hist_results_pc" style="zoom:50%;" /></center>
-
 ### Qualitative Results
 
 We show defense point clouds of SOR, DUP-Net and three variants of IF-Defense. Our methods successfully 1) **recover** the head of the airplane under point dropping attack and 2) **restore** uniform point distributions under kNN attack. More visualizations can be found in the appendix of the paper.
 
 <center><img src="imgs/visualize_defense.png" alt="visualize_defense" style="zoom:100%;" /></center>
-
 
 ## License
 
