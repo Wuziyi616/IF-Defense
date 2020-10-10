@@ -1,6 +1,6 @@
 # IF-Defense
 
-This repository is the official PyTorch implementation of [IF-Defense: 3D Adversarial Point Cloud Defense via Implicit Function based Restoration]().
+This repository is the official PyTorch implementation of [IF-Defense: 3D Adversarial Point Cloud Defense via Implicit Function based Restoration]() (arXiv version coming soon).
 
 ## Introduction
 
@@ -69,7 +69,6 @@ The comprehensive comparisons between different defense methods against various 
 We show defense point clouds of SOR, DUP-Net and three variants of IF-Defense. Our methods successfully 1) **recover** the head of the airplane under point dropping attack and 2) **restore** uniform point distributions under kNN attack. More visualizations can be found in the appendix of the paper.
 
 <center><img src="imgs/visualize_defense.png" alt="visualize_defense" style="zoom:100%;" /></center>
-
 ## License
 
 IF-Defense is released under the MIT License. See the LICENSE file for more details.
