@@ -1,6 +1,6 @@
 # IF-Defense
 
-This repository is the official PyTorch implementation of [IF-Defense: 3D Adversarial Point Cloud Defense via Implicit Function based Restoration]() (arXiv version coming soon).
+This repository is the official PyTorch implementation of [IF-Defense: 3D Adversarial Point Cloud Defense via Implicit Function based Restoration](https://arxiv.org/abs/2010.05272).
 
 ## Introduction
 
