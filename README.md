@@ -14,6 +14,17 @@ In this paper, we propose a novel 3D adversarial point cloud defense method leve
 <center><img src="imgs/method_pipeline.png" alt="method_pipeline" style="zoom:100%;" /></center>
 In this repo, we provide PyTorch implementations for baseline attacks (Perturb, Add, kNN, Drop), defenses (SRS, SOR, DUP-Net) and three variants of IF-Defense (ONet-Mesh, ONet-Opt, ConvONet-Opt). We hope this open source codebase can benefit the community of 3D adversarial attack and defense in point cloud.
 
+If you find our code or paper useful, please considering citing
+
+```
+@article{wu2020if,
+  title={IF-Defense: 3D Adversarial Point Cloud Defense via Implicit Function based Restoration},
+  author={Wu, Ziyi and Duan, Yueqi and Wang, He and Fan, Qingnan and Guibas, Leonidas J},
+  journal={arXiv preprint arXiv:2010.05272},
+  year={2020}
+}
+```
+
 ## Requirements
 
 Our project is developed using Python 3.7.7, PyTorch 1.5.0 with CUDA10.1. We recommend you to use [anaconda](https://www.anaconda.com/) for dependency configuration.
