@@ -4,15 +4,19 @@ This repository is the official PyTorch implementation of [IF-Defense: 3D Advers
 
 ## Introduction
 
-Point cloud is an important 3D data representation widely used in many essential applications (e.g. autonomous driving, robotics). Leveraging deep neural networks (DNNs), recent works have shown great success in processing 3D point clouds. However, DNNs are vulnerable to adversarial attacks, bringing security threat to those safety-critical applications.
+Point cloud is an important 3D data representation widely used in many essential applications (e.g. autonomous driving, robotics). Leveraging deep neural networks (DNNs), recent works have shown great success in processing 3D point clouds. However, **DNNs are vulnerable to adversarial attacks**, bringing security threat to those safety-critical applications.
 
 Although adversarial attack and defense are widely studied in 2D images, little attention is paid to its 3D counterpart. In this paper, we show that 3D attack is not a simple extension of 2D. We summarize the attack effects of existing methods from a **3D-specific geometric-aware perspective**. The small and local perturbations are *point perturbation*, which includes **out-of-surface perturbation** and **on-surface perturbation**. The larger and more global attacks are *surface distortion* including **local part removal** and **geometric deformation**.
 
 <center><img src="imgs/attack_effects.png" alt="attack_effects" style="zoom:100%;" /></center>
-In this paper, we propose a novel 3D adversarial point cloud defense method leveraging **implicit function** based restoration. It is composed of two steps: 1) it predicts an implicit function that captures the *clean shape* through a surface recovery module, and 2) restores a clean and complete point cloud via *optimizing* towards the predicted implicit surface under geometry- and distribution- aware constraints. Our experimental results show that IF-Defense achieves the state-of-the-art defense performance against all existing adversarial attacks on PointNet, PointNet++, DGCNN and PointConv.
+
+
+In this paper, we propose a novel 3D adversarial point cloud defense method leveraging **implicit function** based restoration. It is composed of two steps: **1)** it predicts an implicit function that captures the *clean shape* through a surface recovery module, and **2)** restores a clean and complete point cloud via *optimizing* towards the predicted implicit surface under geometry- and distribution- aware constraints. Our experimental results show that IF-Defense achieves the state-of-the-art defense performance against all existing adversarial attacks on **PointNet**, **PointNet++**, **DGCNN** and **PointConv**.
 
 <center><img src="imgs/method_pipeline.png" alt="method_pipeline" style="zoom:100%;" /></center>
-In this repo, we provide PyTorch implementations for baseline attacks (Perturb, Add, kNN, Drop), defenses (SRS, SOR, DUP-Net) and three variants of IF-Defense (ONet-Mesh, ONet-Opt, ConvONet-Opt). We hope this open source codebase can benefit the community of 3D adversarial attack and defense in point cloud.
+
+
+In this repo, we provide PyTorch implementations for baseline attacks (**Perturb, Add, kNN, Drop**), defenses (**SRS, SOR, DUP-Net**) and three variants of IF-Defense (**ONet-Mesh, ONet-Opt, ConvONet-Opt**). We hope this open source codebase can benefit the community of 3D adversarial attack and defense in point cloud.
 
 If you find our code or paper useful, please considering citing
 
@@ -77,11 +81,13 @@ The comprehensive comparisons between different defense methods against various 
 <center><img src="imgs/hist_results_pc.png" alt="hist_results_pc" style="zoom:50%;" /></center>
 
 
+
 ### Qualitative Results
 
 We show defense point clouds of SOR, DUP-Net and three variants of IF-Defense. Our methods successfully 1) **recover** the head of the airplane under point dropping attack and 2) **restore** uniform point distributions under kNN attack. More visualizations can be found in the appendix of the paper.
 
 <center><img src="imgs/visualize_defense.png" alt="visualize_defense" style="zoom:100%;" /></center>
+
 
 
 ## License
