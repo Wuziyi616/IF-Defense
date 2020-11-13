@@ -58,6 +58,14 @@ generator = config.get_generator(model, cfg, device=device)
 model.eval()
 
 
+def normalize_pc(points):
+    """points: [K, 3]"""
+    points = points - np.mean(points, axis=0)[None, :]  # center
+    dist = np.max(np.sqrt(np.sum(points ** 2, axis=1)), 0)
+    points = points / dist  # scale
+    return points
+
+
 def sor_process(pc):
     """Use SOR to pre-process pc.
     Inputs:
@@ -205,7 +213,7 @@ def defend_npz_train_test_data(path=args.data_root):
     for i in tqdm.trange(len(test_pc)):
         one_pc = test_pc[i]
         re_pc = resample_points(one_pc)
-        re_test_pc[i] = re_pc
+        re_test_pc[i] = normalize_pc(re_pc)
 
     # save
     save_path = get_save_name(path, train=True)
@@ -243,7 +251,7 @@ def defend_npz_test_data(path=args.data_root):
     for i in tqdm.trange(len(test_pc)):
         one_pc = test_pc[i]
         re_pc = resample_points(one_pc)
-        re_test_pc[i] = re_pc
+        re_test_pc[i] = normalize_pc(re_pc)
 
     # save new npz file
     save_path = get_save_name(path)

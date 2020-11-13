@@ -73,6 +73,16 @@ for p in model.parameters():
     p.requires_grad = False
 
 
+def normalize_batch_pc(points):
+    """points: [batch, K, 3]"""
+    centroid = torch.mean(points, dim=1)  # [batch, 3]
+    points -= centroid[:, None, :]  # center, [batch, K, 3]
+    dist = torch.sum(points ** 2, dim=2) ** 0.5  # [batch, K]
+    max_dist = torch.max(dist, dim=1)[0]  # [batch]
+    points /= max_dist[:, None, None]
+    return points
+
+
 def sor_process(pc):
     """Use SOR to pre-process pc.
     Inputs:
@@ -224,6 +234,8 @@ def optimize_points(opt_points, z, c,
                   format(occ_loss.item(),
                          rep_loss.item(),
                          torch.sigmoid(occ_value).mean().item()))
+    opt_points.detach_()
+    opt_points = normalize_batch_pc(opt_points)
     return opt_points.detach().cpu().numpy()
 
 
