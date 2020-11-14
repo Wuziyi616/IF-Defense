@@ -1,6 +1,4 @@
-"""Randomly assign a target class for each victim data.
-This file is for distributed attacking.
-"""
+"""Targeted point perturbation attack."""
 
 import os
 from tqdm import tqdm
@@ -15,7 +13,7 @@ from torch.utils.data.distributed import DistributedSampler
 from torch.nn.parallel import DistributedDataParallel
 
 import sys
-sys.path.append('.')
+sys.path.append('../')
 
 from config import BEST_WEIGHTS
 from config import MAX_PERTURB_BATCH as BATCH_SIZE

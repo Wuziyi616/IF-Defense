@@ -31,9 +31,6 @@ class LogitsAdvLoss(nn.Module):
         real_logits = torch.sum(one_hot_targets * logits, dim=1)
         other_logits = torch.max((1. - one_hot_targets) * logits -
                                  one_hot_targets * 10000., dim=1)[0]
-        # loss = max(other - real, 0.)
-        # import pdb
-        # pdb.set_trace()
         loss = torch.clamp(other_logits - real_logits + self.kappa, min=0.)
         return loss.mean()
 

@@ -1,4 +1,4 @@
-"""Untargeted saliency point dropping attack."""
+"""Untargeted salient point dropping attack."""
 
 import os
 from tqdm import tqdm
@@ -11,7 +11,7 @@ import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
 
 import sys
-sys.path.append('.')
+sys.path.append('../')
 
 from config import BEST_WEIGHTS
 from config import MAX_DROP_BATCH as BATCH_SIZE

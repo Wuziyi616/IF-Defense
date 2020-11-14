@@ -1,3 +1,5 @@
+"""Targeted FGM variants attack."""
+
 import os
 from tqdm import tqdm
 import argparse
@@ -11,7 +13,7 @@ from torch.nn.parallel import DistributedDataParallel
 import torch.distributed as dist
 
 import sys
-sys.path.append('.')
+sys.path.append('../')
 
 from config import BEST_WEIGHTS
 from config import MAX_FGM_PERTURB_BATCH as BATCH_SIZE

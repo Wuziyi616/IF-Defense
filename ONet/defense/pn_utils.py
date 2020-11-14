@@ -76,8 +76,6 @@ def knn_point(k, points):
     inner = -2. * torch.matmul(pc.transpose(2, 1), pc)  # [B, K, K]
     xx = torch.sum(pc ** 2, dim=1, keepdim=True)  # [B, 1, K]
     dist = xx + inner + xx.transpose(2, 1)  # [B, K, K], l2^2
-    # import pdb
-    # pdb.set_trace()
     assert dist.min().item() >= -1e-4
     # the min is self so we take top (k + 1)
     _, top_idx = (-dist).topk(k=k + 1, dim=-1)  # [B, K, k + 1]

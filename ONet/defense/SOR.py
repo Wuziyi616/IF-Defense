@@ -34,8 +34,6 @@ class SORDefense(nn.Module):
         inner = -2. * torch.matmul(pc.transpose(2, 1), pc)  # [B, K, K]
         xx = torch.sum(pc ** 2, dim=1, keepdim=True)  # [B, 1, K]
         dist = xx + inner + xx.transpose(2, 1)  # [B, K, K]
-        # import pdb
-        # pdb.set_trace()
         assert dist.min().item() >= -1e-6
         # the min is self so we take top (k + 1)
         neg_value, _ = (-dist).topk(k=self.k + 1, dim=-1)
@@ -44,7 +42,6 @@ class SORDefense(nn.Module):
         value = torch.mean(value, dim=-1)  # [B, K]
         mean = torch.mean(value, dim=-1)  # [B]
         std = torch.std(value, dim=-1)  # [B]
-        # pdb.set_trace()
         # [B]
         threshold = mean + self.alpha * std
         bool_mask = (value <= threshold[:, None])  # [B, K]
