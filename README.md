@@ -10,11 +10,9 @@ Although adversarial attack and defense are widely studied in 2D images, little 
 
 <center><img src="imgs/attack_effects.png" alt="attack_effects" style="zoom:100%;" /></center>
 
-
-In this paper, we propose a novel 3D adversarial point cloud defense method leveraging **implicit function** based restoration. It is composed of two steps: **1)** it predicts an implicit function that captures the *clean shape* through a surface recovery module, and **2)** restores a clean and complete point cloud via *optimizing* towards the predicted implicit surface under geometry- and distribution- aware constraints. Our experimental results show that IF-Defense achieves the state-of-the-art defense performance against all existing adversarial attacks on **PointNet**, **PointNet++**, **DGCNN** and **PointConv**.
+In this paper, we propose a novel 3D adversarial point cloud defense method leveraging **implicit function** based restoration. It is composed of two steps: **1)** it predicts an implicit function that captures the *clean shape* through a surface recovery module, and **2)** restores a clean and complete point cloud via *optimizing* towards the predicted implicit surface under geometry- and distribution- aware constraints. Our experimental results show that IF-Defense achieves the state-of-the-art defense performance against all existing adversarial attacks on **PointNet**, **PointNet++**, **DGCNN**, **PointConv** and **RS-CNN**.
 
 <center><img src="imgs/method_pipeline.png" alt="method_pipeline" style="zoom:100%;" /></center>
-
 
 In this repo, we provide PyTorch implementations for baseline attacks (**Perturb, Add, kNN, Drop**), defenses (**SRS, SOR, DUP-Net**) and three variants of IF-Defense (**ONet-Mesh, ONet-Opt, ConvONet-Opt**). We hope this open source codebase can benefit the community of 3D adversarial attack and defense in point cloud.
 
@@ -28,6 +26,11 @@ If you find our code or paper useful, please considering citing
   year={2020}
 }
 ```
+
+## Updates
+
+- **2020.11.18** v2 paper of IF-Defense on arXiv! Check out our new results on RS-CNN, extreme sparse input point clouds and adaptive attack
+- **2020.10.13** IF-Defense code release, paper on arXiv available [here](https://arxiv.org/abs/2010.05272)
 
 ## Requirements
 
@@ -80,6 +83,8 @@ The comprehensive comparisons between different defense methods against various 
 <center><img src="imgs/hist_results_dgcnn.png" alt="hist_results_dgcnn" style="zoom:50%;" /></center>
 <center><img src="imgs/hist_results_pc.png" alt="hist_results_pc" style="zoom:50%;" /></center>
 
+<center><img src="imgs/hist_results_rscnn.png" alt="hist_results_rscnn" style="zoom:45%;" /></center>
+
 
 
 ### Qualitative Results
@@ -98,7 +103,7 @@ IF-Defense is released under the MIT License. See the LICENSE file for more deta
 
 We thank the authors of following works for opening source their excellent codes.
 
-- [PointNet/PointNet++](https://github.com/yanx27/Pointnet_Pointnet2_pytorch), [DGCNN](https://github.com/WangYueFt/dgcnn), [PointConv](https://github.com/DylanWusee/pointconv_pytorch)
+- [PointNet/PointNet++](https://github.com/yanx27/Pointnet_Pointnet2_pytorch), [DGCNN](https://github.com/WangYueFt/dgcnn), [PointConv](https://github.com/DylanWusee/pointconv_pytorch), [RS-CNN](https://github.com/Yochengliu/Relation-Shape-CNN)
 - [Perturb/Add attack](https://github.com/xiangchong1/3d-adv-pc), [kNN attack](https://github.com/jinyier/ai_pointnet_attack), [Drop attack](https://github.com/tianzheng4/PointCloud-Saliency-Maps)
 - [PU-Net](https://github.com/lyqun/PU-Net_pytorch), [DUP-Net](https://github.com/RyanHangZhou/DUP-Net)
 - [ONet](https://github.com/autonomousvision/occupancy_networks), [ConvONet](https://github.com/autonomousvision/convolutional_occupancy_networks)
