@@ -64,7 +64,7 @@ Please refer to the appendix of our paper for more details about hybrid training
 
 ### Attacks
 
-We implement **Perturb**, **Add**, **kNN**, variants of **FGM** and **Drop** attack. The attack scripts are in ```attack_scripts/``` folder. Except for Drop method that cannot targetedly attack the victim model, we perform targeted attack according to pre-assigned and fixed target labels.
+We implement **Perturb**, **Add Point**, **Add Cluster**, **Add Object**, **kNN**, variants of **FGM** and **Drop** attack. The attack scripts are in ```attack_scripts/``` folder. Except for Drop method that cannot targetedly attack the victim model, we perform targeted attack according to pre-assigned and fixed target labels.
 
 The attacks are very time-consuming (e.g. 10-step binary search in Perturb method), so we use multi-GPU support provided by DistributedDataParallel in PyTorch to accelerate the process. For detailed usage of each attack method, please refer to ```command.txt```.
 

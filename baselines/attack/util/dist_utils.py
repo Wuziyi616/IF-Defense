@@ -203,3 +203,118 @@ class ChamferkNNDist(nn.Module):
             adv_pc, weights=weights, batch_avg=batch_avg)
         loss = chamfer_loss * self.w1 + knn_loss * self.w2
         return loss
+
+
+class FarthestDist(nn.Module):
+
+    def __init__(self):
+        """Used in adding cluster attack.
+        """
+        super(FarthestDist, self).__init__()
+
+    def forward(self, adv_pc, weights=None, batch_avg=True):
+        """Compute the farthest pairwise point dist in each added cluster.
+
+        Args:
+            adv_pc (torch.FloatTensor): [B, num_add, cl_num_p, 3]
+            weights (np.array): weight factors
+            batch_avg: (bool, optional): whether to avg over batch dim
+        """
+        B = adv_pc.shape[0]
+        if weights is None:
+            weights = torch.ones((B,))
+        delta_matrix = adv_pc[:, :, None, :, :] - adv_pc[:, :, :, None, :] + 1e-7
+        # [B, num_add, num_p, num_p, 3]
+        norm_matrix = torch.norm(delta_matrix, p=2, dim=-1)  # [B, na, np, np]
+        max_matrix = torch.max(norm_matrix, dim=2)[0]  # take the values of max
+        far_dist = torch.max(max_matrix, dim=2)[0]  # [B, num_add]
+        far_dist = torch.sum(far_dist, dim=1)  # [B]
+        weights = weights.float().cuda()
+        loss = far_dist * weights
+        if batch_avg:
+            return loss.mean()
+        return loss
+
+
+class FarChamferDist(nn.Module):
+
+    def __init__(self, num_add, chamfer_method='adv2ori',
+                 chamfer_weight=0.1):
+        """Distance function used in generating adv clusters.
+        Consisting of a Farthest dist and a chamfer dist.
+
+        Args:
+            num_add (int): number of added clusters.
+            chamfer_method (str, optional): chamfer. Defaults to 'adv2ori'.
+            chamfer_weight (float, optional): weight factor. Defaults to 0.1.
+        """
+        super(FarChamferDist, self).__init__()
+
+        self.num_add = num_add
+        self.far_dist = FarthestDist()
+        self.chamfer_dist = ChamferDist(method=chamfer_method)
+        self.cd_w = chamfer_weight
+
+    def forward(self, adv_pc, ori_pc,
+                weights=None, batch_avg=True):
+        """Adversarial constraint function of CVPR'19 paper for adv clusters.
+
+        Args:
+            adv_pc (torch.FloatTensor): [B, num_add * cl_num_p, 3],
+                                        the added clusters
+            ori_pc (torch.FloatTensor): [B, K, 3]
+            weights (np.array): weight factors
+            batch_avg: (bool, optional): whether to avg over batch dim
+        """
+        B = adv_pc.shape[0]
+        chamfer_loss = self.chamfer_dist(
+            adv_pc, ori_pc, weights=weights, batch_avg=batch_avg)
+        adv_clusters = adv_pc.view(B, self.num_add, -1, 3)
+        far_loss = self.far_dist(
+            adv_clusters, weights=weights, batch_avg=batch_avg)
+        loss = far_loss + chamfer_loss * self.cd_w
+        return loss
+
+
+class L2ChamferDist(nn.Module):
+
+    def __init__(self, num_add, chamfer_method='adv2ori',
+                 chamfer_weight=0.2):
+        """Distance function used in generating adv objects.
+        Consisting of a L2 dist and a chamfer dist.
+
+        Args:
+            num_add (int): number of added objects.
+            chamfer_method (str, optional): chamfer. Defaults to 'adv2ori'.
+            chamfer_weight (float, optional): weight factor. Defaults to 0.2.
+        """
+        super(L2ChamferDist, self).__init__()
+
+        self.num_add = num_add
+        self.chamfer_dist = ChamferDist(method=chamfer_method)
+        self.cd_w = chamfer_weight
+        self.l2_dist = L2Dist()
+
+    def forward(self, adv_pc, ori_pc, adv_obj, ori_obj,
+                weights=None, batch_avg=True):
+        """Adversarial constraint function of CVPR'19 paper for adv objects.
+
+        Args:
+            adv_pc (torch.FloatTensor): [B, num_add * obj_num_p, 3],
+                                        the added objects after rot and shift
+            ori_pc (torch.FloatTensor): [B, K, 3]
+            adv_obj (torch.FloatTensor): [B, num_add, obj_num_p, 3],
+                                        the added objects after pert
+            ori_pc (torch.FloatTensor): [B, num_add, obj_num_p, 3],
+                                        the clean added objects
+            weights (np.array): weight factors
+            batch_avg: (bool, optional): whether to avg over batch dim
+        """
+        B = adv_pc.shape[0]
+        chamfer_loss = self.chamfer_dist(
+            adv_pc, ori_pc, weights=weights, batch_avg=batch_avg)
+        l2_loss = self.l2_dist(
+            adv_obj.view(B, -1, 3), ori_obj.view(B, -1, 3),
+            weights=weights, batch_avg=batch_avg)
+        loss = l2_loss + self.cd_w * chamfer_loss
+        return loss

@@ -26,8 +26,8 @@ CUDA_VISIBLE_DEVICES=0 python inference.py --num_points=1024 --mode=normal/targe
 
 #################### baseline attacks
 # files to conduct attacks are in attack_scripts/
-We provide pytorch implementations of 5 attacks:
-    Perturb, Add, kNN, Drop and variants of FGM (not used in the paper)
+We provide pytorch implementations of 7 attacks:
+    Perturb, Add (Point), Add Cluster/Object (not used in the paper), kNN, Drop and variants of FGM (not used in the paper)
 The attacks (except for Dropping) are very time-cosuming since they use CW attack framework which requires multi-step binary search or FGM requires many steps of optimization
 In order to speed up the attack process, I use torch.nn.parallel.DistributedDataParallel
 You need to assign the GPUs index, --nproc_per_node={$NUM_GPU_USED} and a unique master_port
@@ -45,6 +45,16 @@ NCCL_DEBUG=INFO CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --npro
 You need to specify the victim model, distance measurement and dataset name in the command
 
 NCCL_DEBUG=INFO CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=29501 attack_scripts/targeted_add_attack.py --model={$MODEL} --dist_func=chamfer/hausdorff --num_points=1024 --dataset={$DATASET}
+
+# Add Cluster
+You need to specify the victim model, number of clusters added, number of points in each cluster and dataset name in the command
+
+NCCL_DEBUG=INFO CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=29501 attack_scripts/targeted_add_cluster_attack.py --num_add=3 --cl_num_p=32 --model={$MODEL} --num_points=1024 --dataset={$DATASET}
+
+# Add Object
+You need to specify the victim model, number of objects added, number of points in each object and dataset name in the command
+
+NCCL_DEBUG=INFO CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --nproc_per_node=1 --master_port=29501 attack_scripts/targeted_add_object_attack.py --num_add=3 --obj_num_p=64 --model={$MODEL} --num_points=1024 --dataset={$DATASET}
 
 # kNN
 You need to specify the victim model and dataset name in the command

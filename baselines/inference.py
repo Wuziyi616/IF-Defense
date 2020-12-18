@@ -124,15 +124,27 @@ if __name__ == "__main__":
     set_seed(1)
 
     # in case adding attack
-    # we add 512 points in adding attacks
-    if 'ADD' in args.data_root:
+    if 'add' in args.data_root.lower():
+        # we add 512 points in adding attacks
         if args.num_points == 1024:
             num_points = 1024
             args.num_points = 1024 + 512
         elif args.num_points == 1024 + 512:
             num_points = 1024
-        else:
-            print('Number of points in add attack not recognized')
+    elif 'cluster' in args.data_root.lower():
+        # we add 3*32=96 points in adding cluster attack
+        if args.num_points == 1024:
+            num_points = 1024
+            args.num_points = 1024 + 3 * 32
+        elif args.num_points == 1024 + 3 * 32:
+            num_points = 1024
+    elif 'object' in args.data_root.lower():
+        # we add 3*64=192 points in adding object attack
+        if args.num_points == 1024:
+            num_points = 1024
+            args.num_points = 1024 + 3 * 64
+        elif args.num_points == 1024 + 3 * 64:
+            num_points = 1024
     else:
         num_points = args.num_points
 

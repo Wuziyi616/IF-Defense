@@ -43,6 +43,9 @@ BEST_WEIGHTS = {
 # PU-Net trained on Visionair with 1024 input point number, up rate 4
 PU_NET_WEIGHT = 'defense/DUP_Net/pu-in_1024-up_4.pth'
 
+# Note: the following batch sizes are tested on a RTX 2080 Ti GPU
+# you may need to slightly adjust them to fit in your device
+
 # max batch size used in testing model accuracy
 MAX_TEST_BATCH = {
     1024: {
@@ -91,6 +94,26 @@ MAX_ADD_BATCH = {
         'pointnet2': 78,
         'dgcnn': 35,
         'pointconv': 57,
+    },
+}
+
+# max batch size used in Add Cluster attack
+MAX_ADD_CLUSTER_BATCH = {
+    1024: {
+        'pointnet': 320,
+        'pointnet2': 88,
+        'dgcnn': 48,
+        'pointconv': 60,
+    },
+}
+
+# max batch size used in Add Object attack
+MAX_ADD_OBJECT_BATCH = {
+    1024: {
+        'pointnet': 320,
+        'pointnet2': 88,
+        'dgcnn': 44,
+        'pointconv': 58,
     },
 }
 
