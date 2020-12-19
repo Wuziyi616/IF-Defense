@@ -112,7 +112,7 @@ MAX_ADD_OBJECT_BATCH = {
     1024: {
         'pointnet': 320,
         'pointnet2': 88,
-        'dgcnn': 44,
+        'dgcnn': 42,
         'pointconv': 58,
     },
 }
