@@ -102,7 +102,7 @@ MAX_ADD_CLUSTER_BATCH = {
     1024: {
         'pointnet': 320,
         'pointnet2': 88,
-        'dgcnn': 48,
+        'dgcnn': 45,
         'pointconv': 60,
     },
 }
