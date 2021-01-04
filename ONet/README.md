@@ -34,3 +34,9 @@ CUDA_VISIBLE_DEVICES=0 python opt_defense.py --sample_npoint=1024 --train=False 
 
 The defense result will be saved in the ```ONet-Opt/``` folder in the adv_data's directory.
 
+## Dataset Preparation
+
+As required by [this issue](https://github.com/Wuziyi616/IF-Defense/issues/2), I upload the scripts I used to generate ModelNet40 training data to train implicit function networks in ```data_proc/``` folder. They are adopted from the original [ONet](https://github.com/autonomousvision/occupancy_networks#building-the-dataset) repo but I made some modifications (e.g. use Manifold to generate watertight meshes). Please refer to the issue for more details about training on ModelNet40 dataset.
+
+
+
