@@ -1,0 +1,31 @@
+0.          x                   [2, 3, 1024]
+1.          stn3.conv1          [2, 64, 1024]
+2.          F.relu
+3.          stn3.conv2          [2, 128, 1024]
+4.          F.relu
+5.          stn3.conv3          [2, 1024, 1024]
+6.          F.relu
+7.          nn.AvgPool1d(1024)   [2, 1024, 1]
+7.5         Reshape              [2, 1024]
+8.          stn3.fc1            [2, 512]
+9.          F.relu
+10.         stn3.fc2            [2, 256]
+11.         F.relu
+12.         stn3.fc3            [2, 9]
+12.5        x = x + iden()      [2, 9]      #treat as linear layer with weights are zeros
+13.         reshape             [2, 3, 3]   ----> trans
+14.         x = torch.bmm(x.transpose(2, 1), trans)    # convert to two conv layers     [2, 1024, 3]
+14.5        x.transpose(2, 1)       # [2, 3, 1024]
+15.         feat.conv1          [2, 64, 1024]
+16.         F.relu
+17.         feat.conv2              [2, 128, 1024]
+18.         F.relu
+19.         feat.conv3          [2, 1024, 1024]
+20.         nn.AvgPool1d(1024)     [2, 1024, 1]
+20.5.       reshape             [2, 1024]     --->feats
+21          fc1                 [2, 512]
+22.         F.relu
+23.         self.bn2(fc2)       [2, 256]
+24.         F.relu
+25.         fc3                 [2, 40]
+
