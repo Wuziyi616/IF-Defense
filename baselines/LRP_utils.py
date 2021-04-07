@@ -4,6 +4,7 @@ import matplotlib
 from matplotlib import pyplot as plt
 import torch
 import torch.nn as nn
+from mpl_toolkits.mplot3d import Axes3D
 
 # --------------------------------------
 # Load parameters
@@ -41,6 +42,37 @@ def heatmap(R,sx,sy):
     plt.imshow(R,cmap=my_cmap,vmin=-b,vmax=b,interpolation='nearest')
     plt.show()
 
+
+def pc_heatmap(pc, R):
+    """pc:[1024, 3], R[1024]"""
+    pc = pc.detach().cpu().numpy()
+    R = R.detach().cpu().numpy()
+    fig = plt.figure()
+    # ax = fig.add_subplot(111, projection='3d')
+
+    # Generate the values
+    x_vals = pc[:, 0:1]
+    y_vals = pc[:, 1:2]
+    z_vals = pc[:, 2:3]
+    #R = R * 1000
+    R = numpy.abs(R)
+    R[R<0.00001] = -3000
+    c = R
+
+    # Plot the values
+    cmhot = plt.get_cmap("cool")
+    ax = Axes3D(fig)
+    ax.scatter(x_vals, y_vals, z_vals, R, c=c, marker='.', cmap=cmhot)
+    ax.set_xlabel('X-axis')
+    ax.set_ylabel('Y-axis')
+    ax.set_zlabel('Z-axis')
+
+    # for ii in range(0, 360, 10):
+    #   ax.view_init(elev=-90., azim=ii)
+    #   plt.savefig("pics/movie%d.png" % ii)
+    plt.show()
+
+
 def digit(X,sx,sy):
 
     plt.figure(figsize=(sx,sy))
@@ -65,12 +97,27 @@ def newlayer(layer,g):
 
     layer = copy.deepcopy(layer)
 
-    try: layer.weight = nn.Parameter(g(layer.weight))
-    except AttributeError: pass
+    if isinstance(layer, nn.Sequential):
+        try: layer[0].weight = nn.Parameter(g(layer[0].weight))
+        except AttributeError: pass
 
-    try: layer.bias   = nn.Parameter(g(layer.bias))
-    except AttributeError: pass
+        try: layer[0].bias   = nn.Parameter(torch.zeros_like(layer[0].bias))    #g(layer[0].bias))
+        except AttributeError: pass
 
+    else:
+        try:
+            layer.weight = nn.Parameter(g(layer.weight))
+        except AttributeError:
+            pass
+
+        try:
+            layer.bias = nn.Parameter(torch.zeros_like(layer.bias))   # g(layer.bias))
+        except AttributeError:
+            pass
+
+    # if isinstance(layer, nn.Sequential):
+    #     return layer[0]
+    # else:
     return layer
 
 # --------------------------------------------------------------
@@ -103,6 +150,7 @@ def bmm_to_conv(mat):
        newlayers[i] = newlayer
 
    return newlayers
+
 
 def toconv(layers):
 
