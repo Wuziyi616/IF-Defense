@@ -55,8 +55,8 @@ def pc_heatmap(pc, R):
     y_vals = pc[:, 1:2]
     z_vals = pc[:, 2:3]
     #R = R * 1000
-    R = numpy.abs(R)
-    R[R<0.00001] = -3000
+    #R = numpy.abs(R)
+    #R[R<0.00001] = -3000
     c = R
 
     # Plot the values
@@ -66,7 +66,11 @@ def pc_heatmap(pc, R):
     ax.set_xlabel('X-axis')
     ax.set_ylabel('Y-axis')
     ax.set_zlabel('Z-axis')
+    ax.set_xlim(-1.3, 1.3)
+    ax.set_ylim(-1.3, 1.3)
+    ax.set_zlim(-1.3, 1.3)
 
+    ax.view_init(elev=0., azim=90)
     # for ii in range(0, 360, 10):
     #   ax.view_init(elev=-90., azim=ii)
     #   plt.savefig("pics/movie%d.png" % ii)
@@ -115,10 +119,10 @@ def newlayer(layer,g):
         except AttributeError:
             pass
 
-    # if isinstance(layer, nn.Sequential):
-    #     return layer[0]
-    # else:
-    return layer
+    if isinstance(layer, nn.Sequential):
+        return layer[0]
+    else:
+        return layer
 
 # --------------------------------------------------------------
 # convert VGG classifier's dense layers to convolutional layers
