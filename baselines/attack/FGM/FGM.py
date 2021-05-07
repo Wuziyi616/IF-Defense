@@ -55,10 +55,12 @@ class FGM:
         logits = self.model(data)
         if isinstance(logits, tuple):
             logits = logits[0]  # [B, class]
+        # print(logits.max())
         pred = torch.argmax(logits, dim=-1)  # [B]
 
         # backward pass
         loss = self.adv_func(logits, target).mean()
+        # print(loss)
         loss.backward()
         with torch.no_grad():
             grad = data.grad.detach()  # [B, 3, K]
@@ -133,11 +135,13 @@ class IFGM(FGM):
         pc = pc + torch.randn((B, 3, K)).cuda() * 1e-7
         ori_pc = pc.clone().detach()
         target = target.long().cuda()
+        # print(pc.shape)
 
         # start iteration
         for iteration in range(self.num_iter):
             # gradient
             normalized_grad, pred = self.get_gradient(pc, target)
+            print(normalized_grad)
             success_num = (pred == target).sum().item()
             if iteration % (self.num_iter // 5) == 0:
                 print('iter {}/{}, success: {}/{}'.
