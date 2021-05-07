@@ -34,7 +34,7 @@ class SORDefense(nn.Module):
         inner = -2. * torch.matmul(pc.transpose(2, 1), pc)  # [B, K, K]
         xx = torch.sum(pc ** 2, dim=1, keepdim=True)  # [B, 1, K]
         dist = xx + inner + xx.transpose(2, 1)  # [B, K, K]
-        assert dist.min().item() >= -1e-6
+        # assert dist.min().item() >= -1e-6
         # the min is self so we take top (k + 1)
         neg_value, _ = (-dist).topk(k=self.k + 1, dim=-1)  # [B, K, k + 1]
         value = -(neg_value[..., 1:])  # [B, K, k]
