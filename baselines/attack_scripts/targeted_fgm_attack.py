@@ -14,6 +14,7 @@ import torch.distributed as dist
 
 import sys
 sys.path.append('../')
+sys.path.append('./')
 
 from config import BEST_WEIGHTS
 from config import MAX_FGM_PERTURB_BATCH as BATCH_SIZE
@@ -66,7 +67,7 @@ if __name__ == "__main__":
                         help='whether to use STN on features in PointNet')
     parser.add_argument('--dataset', type=str, default='mn40', metavar='N',
                         choices=['mn40', 'remesh_mn40', 'opt_mn40', 'conv_opt_mn40'])
-    parser.add_argument('--batch_size', type=int, default=-1, metavar='BS',
+    parser.add_argument('--batch_size', type=int, default=1, metavar='BS',
                         help='Size of batch')
     parser.add_argument('--num_points', type=int, default=1024,
                         help='num of points to use')
@@ -79,7 +80,7 @@ if __name__ == "__main__":
                         help='Adversarial loss function to use')
     parser.add_argument('--kappa', type=float, default=0.,
                         help='min margin in logits adv loss')
-    parser.add_argument('--attack_type', type=str, default='FGM', metavar='N',
+    parser.add_argument('--attack_type', type=str, default='IFGM', metavar='N',
                         help='Attack method to use')
     parser.add_argument('--budget', type=float, default=0.08,
                         help='FGM attack budget')
@@ -97,8 +98,8 @@ if __name__ == "__main__":
     set_seed(1)
     print(args)
 
-    dist.init_process_group(backend='nccl')
-    torch.cuda.set_device(args.local_rank)
+    #dist.init_process_group(backend='nccl')
+    #torch.cuda.set_device(args.local_rank)
     cudnn.benchmark = True
 
     # build model
@@ -127,8 +128,9 @@ if __name__ == "__main__":
 
     # distributed mode on multiple GPUs!
     # much faster than nn.DataParallel
-    model = DistributedDataParallel(
-        model.cuda(), device_ids=[args.local_rank])
+    model.cuda()
+    # model = torch.nn.DataParallel(
+    #     model.cuda())
 
     # setup attack settings
     # budget, step_size, number of iteration
@@ -165,11 +167,10 @@ if __name__ == "__main__":
     # attack
     test_set = ModelNet40Attack(args.data_root, num_points=args.num_points,
                                 normalize=True)
-    test_sampler = DistributedSampler(test_set, shuffle=False)
+    # test_sampler = DistributedSampler(test_set, shuffle=False)
     test_loader = DataLoader(test_set, batch_size=args.batch_size,
                              shuffle=False, num_workers=4,
-                             pin_memory=True, drop_last=False,
-                             sampler=test_sampler)
+                             pin_memory=True, drop_last=False)
 
     # run attack
     attacked_data, real_label, target_label, success_num = attack()
