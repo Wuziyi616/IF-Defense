@@ -5,7 +5,8 @@ BEST_WEIGHTS = {
     # trained on standard mn40 dataset
     'mn40': {
         1024: {
-            'pointnet': 'pretrain/mn40/pointnet.pth',
+            'pointnet': 'pretrain/mn40/BEST_model160_acc_0.8387.pth',
+            # 'pointnet': 'pretrain/mn40/pointnet.pth',
             'pointnet2': 'pretrain/mn40/pointnet2.pth',
             'pointconv': 'pretrain/mn40/pointconv.pth',
             'dgcnn': 'pretrain/mn40/dgcnn.pth',
