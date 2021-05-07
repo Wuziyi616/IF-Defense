@@ -70,6 +70,10 @@ def test_normal():
                 data.float().cuda(), label.long().cuda()
             # to [B, 3, N] point cloud
             data = data.transpose(1, 2).contiguous()
+            if data.shape[2] == 0:
+                acc = float(batch_size) / float(batch_size)
+                acc_save.update(acc, batch_size)
+                continue
             batch_size = label.size(0)
             # batch in
             if args.model.lower() == 'pointnet':
@@ -87,11 +91,11 @@ if __name__ == "__main__":
     # Training settings
     parser = argparse.ArgumentParser(description='Point Cloud Recognition')
     parser.add_argument('--data_root', type=str,
-                        default='')
+                        default='attack/results/mn40_1024/AOA/pointnet/aoa-budget_0.5-iter_200-success_0.7885-rank_0.npz')
     parser.add_argument('--mode', type=str, default='normal',
                         choices=['normal', 'target'],
                         help='Testing mode')
-    parser.add_argument('--model', type=str, default='', metavar='MODEL',
+    parser.add_argument('--model', type=str, default='pointconv', metavar='MODEL',
                         choices=['pointnet', 'pointnet2',
                                  'dgcnn', 'pointconv', ''],
                         help='Model to use, [pointnet, pointnet++, dgcnn, pointconv]. '
@@ -101,7 +105,7 @@ if __name__ == "__main__":
                                  'opt_mn40', 'conv_opt_mn40'])
     parser.add_argument('--normalize_pc', type=str2bool, default=False,
                         help='normalize in dataloader')
-    parser.add_argument('--batch_size', type=int, default=-1, metavar='BS',
+    parser.add_argument('--batch_size', type=int, default=16, metavar='BS',
                         help='Size of batch, use config if not specified')
 
     parser.add_argument('--num_points', type=int, default=1024,
