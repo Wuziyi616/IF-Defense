@@ -73,15 +73,15 @@ def defend(data_root, one_defense):
 if __name__ == '__main__':
     # Training settings
     parser = argparse.ArgumentParser(description='Point Cloud Recognition')
-    parser.add_argument('--data_root', type=str, default='',
+    parser.add_argument('--data_root', type=str, default='attack/results/mn40_1024/AOA/pointnet/aoa-budget_0.5-iter_200-success_0.7626-rank_0.npz',
                         help='the npz data to defend')
-    parser.add_argument('--defense', type=str, default='',
+    parser.add_argument('--defense', type=str, default='sor',
                         choices=['', 'srs', 'sor', 'dup'],
                         help='Defense method for input processing, '
                              'apply all if not specified')
     parser.add_argument('--srs_drop_num', type=int, default=500,
                         help='Number of point dropping in SRS')
-    parser.add_argument('--sor_k', type=int, default=2,
+    parser.add_argument('--sor_k', type=int, default=20,
                         help='KNN in SOR')
     parser.add_argument('--sor_alpha', type=float, default=1.1,
                         help='Threshold = mean + alpha * std')
