@@ -113,5 +113,5 @@ We also thank the authors of related papers/repos for their inspiring discussion
 
 ## Contact
 
-If you have any questions about the paper or the code, please contact Ziyi Wu wuzy17@mails.tsinghua.edu.cn
+If you have any questions about the paper or the code, please contact Ziyi Wu (dazitu616@gmail.com)
 
